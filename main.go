@@ -20,6 +20,7 @@ func(u User) IsOld() bool{
 func main(){
 	user := User{Name : "dongjun", Email : "dongjun@naver.com", Age : 23}
 	user2 := User{Name : "dong", Email : "don@naver.com", Age : 36}
+	users := []User{user,user2}
 	//ParseFiles함수를 사용하면 여러 탬플릿을 불러올 수 있다.	
 	tmpl, err := template.New("Tmpl1").ParseFiles("templates/tmpl1.tmpl","templates/tmpl2.tmpl")
 	
@@ -30,7 +31,8 @@ func main(){
 	}
 	//ParseFiles로 탬플릿을 이용하려면 ExecuteTemplate함수를 사용해야함.
 	//Parse함수로 탬플릿을 이용하려면 Execute함수를 사용해야함.
-	tmpl.ExecuteTemplate(os.Stdout,"tmpl2.tmpl",user)
-	tmpl.ExecuteTemplate(os.Stdout,"tmpl2.tmpl",user2)
+	//list를 넘길 때는 template파일안에 {{range .}} 값 {{end}}문법 사용해서 for문처럼 사용 
+	tmpl.ExecuteTemplate(os.Stdout,"tmpl2.tmpl",users)
+	//tmpl.ExecuteTemplate(os.Stdout,"tmpl2.tmpl",user2)
 	fmt.Println("==end==")
 }
